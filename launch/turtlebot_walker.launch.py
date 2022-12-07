@@ -33,14 +33,7 @@ from launch.conditions import IfCondition
 def generate_launch_description():
 
     record = LaunchConfiguration('record')
-    # rosbag_record = ExecuteProcess(
-    #     cmd=['ros2', 'bag', 'record', '-a' , '-x','/camera/*'],
-    #     output='screen',
-    #     condition=IfCondition(record)
-    #     )
-    # record_value = IfCondition(PythonExpression([record, '== 1']))
-    # print("record value: "  + record_value)
-    
+
     declare_record = DeclareLaunchArgument(
         'record',
         default_value='0',
@@ -96,7 +89,7 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription([declare_record,
-    ExecuteProcess(cmd=['ros2', 'bag', 'record', '-a'] # , '-x', '/camera/*'
+    ExecuteProcess(cmd=['ros2', 'bag', 'record', '-a'  , '-x', '/camera/*']
         , condition=IfCondition(PythonExpression([record, '== 1']))
         )])
 
